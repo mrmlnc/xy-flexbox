@@ -1,0 +1,196 @@
+//
+// Name:        XY flexbox
+// Description: XY is a small and very flexible collection of mixins for
+//              building grids based on flexbox
+// Version:     1.0.0
+//
+// Author:      Denis Malinochkin
+// GitHub:      https://github.com/mrmlnc/xy-flexbox
+//
+// twitter:     @mrmlnc
+//
+
+
+//
+// Container
+//
+
+// Creates a container
+.xy-make-container(@gutter: 30px) {
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: (@gutter / 2);
+  padding-right: (@gutter / 2);
+}
+
+// Defines of the maximum width for the container
+.xy-make-container-width(@breakpoint, @width) {
+  @media (min-width: @breakpoint) {
+    width: @width;
+  }
+}
+
+
+//
+// Row
+//
+
+// Creates a row
+.xy-make-row(@gutter: 30px) {
+  display: flex;
+  flex-wrap: wrap;
+  margin-left: (@gutter / -2);
+  margin-right: (@gutter / -2);
+}
+
+
+//
+// Column
+//
+
+// Creates a column
+.xy-make-column(@gutter: 30px) {
+  position: relative;
+  min-height: 1px;
+  padding-left:  (@gutter / 2);
+  padding-right: (@gutter / 2);
+}
+
+// Defines of the maximum width for the column
+.xy-make-columns-width(@alias, @count) {
+  .loop(@index: 1) when (@index =< @count) {
+    &-@{alias}-@{index} {
+      flex: 0 0 percentage(@index / @count);
+    }
+
+    .loop(@index + 1);
+  }
+
+  .loop();
+}
+
+// Defines of offset for the column
+.xy-make-columns-offset(@alias, @count) {
+  .loop(@index: 0) when (@index =< @count) {
+    &-@{alias}-offset-@{index} {
+      margin-left: percentage(@index / @count);
+    }
+
+    .loop(@index + 1);
+  }
+
+  .loop();
+}
+
+// Defines of push for the column
+.xy-make-columns-push(@alias, @count) {
+  .loop(@index: 0) when (@index =< @count) {
+    & when (@index = 0) {
+      &-@{alias}-push-@{index} {
+        left: auto;
+      }
+    }
+    & when not (@index = 0) {
+      &-@{alias}-push-@{index} {
+        left: percentage(@index / @count);
+      }
+    }
+
+    .loop(@index + 1);
+  }
+
+  .loop();
+}
+
+// Defines of pull for the column
+.xy-make-columns-pull(@alias, @count) {
+  .loop(@index: 0) when (@index =< @count) {
+    & when (@index = 0) {
+      &-@{alias}-pull-@{index} {
+        right: auto;
+      }
+    }
+    & when not (@index = 0) {
+      &-@{alias}-pull-@{index} {
+        right: percentage(@index / @count);
+      }
+    }
+
+    .loop(@index + 1);
+  }
+
+  .loop();
+}
+
+
+//
+// Utilities
+//
+
+// Alignment helper
+.xy-helper-align(@type, @alias) {
+  &-@{alias}-top    { align-@{type}: flex-start; }
+  &-@{alias}-center { align-@{type}: center; }
+  &-@{alias}-bottom { align-@{type}: flex-end; }
+}
+
+// Alignment for every column in row
+.xy-make-row-align(@alias, @breakpoint) {
+  @media (min-width: @breakpoint) {
+    .xy-helper-align(items, @alias);
+  }
+}
+
+.xy-make-row-align(@alias) {
+  .xy-helper-align(items, @alias);
+}
+
+// Flex column reordering
+.xy-make-columns-order(@alias, @breakpoint) {
+  @media (min-width: @breakpoint) {
+    &-@{alias}-first { order: -1; }
+    &-@{alias}-last  { order: 1; }
+  }
+}
+
+.xy-make-columns-order(@alias) {
+  &-@{alias}-first { order: -1; }
+  &-@{alias}-last  { order: 1; }
+}
+
+// Alignment per column
+.xy-make-columns-align(@alias, @breakpoint) {
+  @media (min-width: @breakpoint) {
+    .xy-helper-align(self, @alias);
+  }
+}
+
+.xy-make-columns-align(@alias) {
+  .xy-helper-align(self, @alias);
+}
+
+
+//
+// Generator
+//
+
+// Generator complete collection of styles for a single alias
+.xy-make-grid-columns(@alias, @breakpoint, @count) {
+  @media (min-width: @breakpoint) {
+    .xy-make-columns-width(@alias, @count);
+    .xy-make-columns-offset(@alias, @count);
+    .xy-make-columns-push(@alias, @count);
+    .xy-make-columns-pull(@alias, @count);
+    .xy-make-columns-align(@alias);
+    .xy-make-columns-order(@alias);
+  }
+}
+
+.xy-make-grid-columns(@alias, @count) {
+  .xy-make-columns-width(@alias, @count);
+  .xy-make-columns-offset(@alias, @count);
+  .xy-make-columns-push(@alias, @count);
+  .xy-make-columns-pull(@alias, @count);
+  .xy-make-columns-align(@alias);
+  .xy-make-columns-order(@alias);
+}

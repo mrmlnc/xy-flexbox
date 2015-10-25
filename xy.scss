@@ -1,0 +1,167 @@
+//
+// Name:        XY float
+// Description: XY is a small and very flexible collection of mixins for
+//              building grids based on floating elements
+// Version:     1.0.0
+//
+// Author:      Denis Malinochkin
+// GitHub:      https://github.com/mrmlnc/xy-float
+//
+// twitter:     @mrmlnc
+//
+
+
+//
+// Container
+//
+
+// Creates a container
+@mixin xy-make-container($gutter: 30px) {
+  margin-right: auto;
+  margin-left: auto;
+  padding-left:  ($gutter / 2);
+  padding-right: ($gutter / 2);
+}
+
+// Defines of the maximum width for the container
+@mixin xy-make-container-width($breakpoint, $width) {
+  @media (min-width: $breakpoint) {
+    width: $width;
+  }
+}
+
+
+//
+// Row
+//
+
+// Creates a row
+@mixin xy-make-row($gutter: 30px) {
+  display: flex;
+  flex-wrap: wrap;
+  margin-left: ($gutter / -2);
+  margin-right: ($gutter / -2);
+}
+
+
+//
+// Column
+//
+
+// Creates a column
+@mixin xy-make-column($gutter: 30px) {
+  position: relative;
+  min-height: 1px;
+  padding-left:  ($gutter / 2);
+  padding-right: ($gutter / 2);
+}
+
+// Defines of the maximum width for the column
+@mixin xy-make-columns-width($alias, $count) {
+  @for $index from 1 through $count {
+    &-#{$alias}-#{$index} {
+      flex: 0 0 percentage($index / $count);
+    }
+  }
+}
+
+// Defines of offset for the column
+@mixin xy-make-columns-offset($alias, $count) {
+  @for $index from 0 through $count {
+    &-#{$alias}-offset-#{$index} {
+      margin-left: percentage($index / $count);
+    }
+  }
+}
+
+// Defines of push for the column
+@mixin xy-make-columns-push($alias, $count) {
+  @for $index from 0 through $count {
+    &-#{$alias}-push-#{$index} {
+      left: if($index > 0, percentage($index / $count), auto);
+    }
+  }
+}
+
+// Defines of pull for the column
+@mixin xy-make-columns-pull($alias, $count) {
+  @for $index from 0 through $count {
+    &-#{$alias}-pull-#{$index} {
+      right: if($index > 0, percentage($index / $count), auto);
+    }
+  }
+}
+
+
+//
+// Utilities
+//
+
+// Alignment helper
+@mixin xy-helper-align($type, $alias) {
+  &-#{$alias}-top    { align-#{$type}: flex-start; }
+  &-#{$alias}-center { align-#{$type}: center; }
+  &-#{$alias}-bottom { align-#{$type}: flex-end; }
+}
+
+// Alignment for every column in row
+@mixin xy-make-row-align($alias, $breakpoint: none) {
+  @if ($breakpoint != none) {
+    @media (min-width: $breakpoint) {
+      @include xy-helper-align(items, $alias);
+    }
+  } @else {
+    @include xy-helper-align(items, $alias);
+  }
+}
+
+// Flex column reordering
+@mixin xy-make-columns-order($alias, $breakpoint: none) {
+  @if ($breakpoint != none) {
+    @media (min-width: $breakpoint) {
+      &-#{$alias}-first { order: -1; }
+      &-#{$alias}-last  { order: 1; }
+    }
+  } @else {
+    &-#{$alias}-first { order: -1; }
+    &-#{$alias}-last  { order: 1; }
+  }
+}
+
+// Alignment per column
+@mixin xy-make-columns-align($alias, $breakpoint: none) {
+  @if ($breakpoint != none) {
+    @media (min-width: $breakpoint) {
+      @include xy-helper-align(self, $alias);
+    }
+  } @else {
+    @include xy-helper-align(self, $alias);
+  }
+}
+
+
+//
+// Generator
+//
+
+// Generator complete collection of styles for a single alias
+@mixin xy-make-grid-columns($alias, $breakpoint, $count: none) {
+  @if ($count != none) {
+    @media (min-width: $breakpoint) {
+      @include xy-make-columns-width($alias, $count);
+      @include xy-make-columns-offset($alias, $count);
+      @include xy-make-columns-push($alias, $count);
+      @include xy-make-columns-pull($alias, $count);
+      @include xy-make-columns-align($alias);
+      @include xy-make-columns-order($alias);
+    }
+  } @else {
+    $count: $breakpoint;
+    @include xy-make-columns-width($alias, $count);
+    @include xy-make-columns-offset($alias, $count);
+    @include xy-make-columns-push($alias, $count);
+    @include xy-make-columns-pull($alias, $count);
+    @include xy-make-columns-align($alias);
+    @include xy-make-columns-order($alias);
+  }
+}

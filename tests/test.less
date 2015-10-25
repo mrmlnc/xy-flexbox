@@ -1,0 +1,51 @@
+@import "../xy";
+
+//
+// Variables
+//
+@grid-gutter:        30px;
+@grid-columns-count: 12;
+
+// Breakpoints
+@grid-breakpoint-sm: 768px;
+@grid-breakpoint-md: 992px;
+@grid-breakpoint-lg: 1200px;
+
+// Container width
+@grid-container-sm: 720px;
+@grid-container-md: 960px;
+@grid-container-lg: 1140px;
+
+
+//
+// Test
+//
+
+// Container
+.container {
+  .xy-make-container(@grid-gutter);
+  .xy-make-container-width(@grid-breakpoint-sm, @grid-container-sm);
+  .xy-make-container-width(@grid-breakpoint-md, @grid-container-md);
+
+  .row {
+    .xy-make-row(@grid-gutter);
+    .xy-make-row-align(sm, @grid-breakpoint-sm);
+    .xy-make-row-align(md, @grid-breakpoint-md);
+  }
+}
+
+// Column
+.col {
+  .xy-make-column(@grid-gutter);
+  .xy-make-grid-columns(xs, @grid-columns-count);
+  .xy-make-grid-columns(sm, @grid-breakpoint-sm, @grid-columns-count);
+  .xy-make-grid-columns(md, @grid-breakpoint-md, @grid-columns-count);
+
+  // If you want to use only the width, offset, push or pull
+  // @media (min-width: @grid-breakpoint-sm) {
+  //   .xy-make-columns-width(sm, @grid-columns-count);
+  //   .xy-make-columns-offset(sm, @grid-columns-count);
+  //   .xy-make-columns-align(sm);
+  //   .xy-make-columns-order(sm);
+  // }
+}
