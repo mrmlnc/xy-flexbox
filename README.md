@@ -2,11 +2,17 @@
 
 > XY (flexbox) is a small and very flexible collection of mixins for building grids based on flexbox.
 
+![Bower version](https://img.shields.io/bower/v/xy-flexbox.svg)
+
 ## What is?
 
 This is a collection of mixins for all preprocessors (Less, Stylus, Sass), which you can use to create a grid that is convenient for you and your project.
 
 If you need to set only the width of columns - you just do it. Later you can add offset, push or pull for the columns using the appropriate mixin.
+
+## WTF? Flexbox? The future?
+
+Ok. See the [XY (float)](https://github.com/mrmlnc/xy-float).
 
 ## Have suggestions?
 
@@ -33,7 +39,7 @@ Just import the file, which includes mixins in your project.
   * [xy-make-column](#xy-make-column)
   * [xy-make-columns-width (offset, push, pull)](#xy-make-columns-width-offset-push-pull)
   * [xy-make-grid-columns](#xy-make-grid-columns)
-  
+
 ## Utilities
 
   * [xy-make-row-align](#xy-make-row-align)
@@ -91,7 +97,7 @@ Parameters:
   * **alias** - the alias of the current layout (breakpoint)
   * **breakpoint** (optional) - device breakpoint
   * **count** - the number of columns
-  
+
 Includes:
 
   * xy-make-columns-width
@@ -100,7 +106,7 @@ Includes:
   * xy-make-columns-pull
   * xy-make-columns-align (utilities)
   * xy-make-columns-order (utilities)
-  
+
 ## xy-make-row-align
 
 > Alignment for every column in row
@@ -118,7 +124,7 @@ Parameters:
 
   * **alias** - the alias of the current layout (breakpoint)
   * **breakpoint** (optional) - device breakpoint
-  
+
 ## xy-make-columns-align
 
 > Alignment per column
@@ -141,7 +147,7 @@ Parameters:
 
   .row {
     .xy-make-row(30px);
-    
+
     // Utilities (optional)
     .xy-make-row-align(sm, @grid-breakpoint-sm);
     .xy-make-row-align(md, @grid-breakpoint-md);
