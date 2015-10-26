@@ -26,7 +26,7 @@
 // Defines of the maximum width for the container
 @mixin xy-make-container-width($breakpoint, $width) {
   @media (min-width: $breakpoint) {
-    width: $width;
+    max-width: $width;
   }
 }
 
@@ -54,6 +54,7 @@
   min-height: 1px;
   padding-left:  ($gutter / 2);
   padding-right: ($gutter / 2);
+  flex: 0 0 100%;
 }
 
 // Defines of the maximum width for the column

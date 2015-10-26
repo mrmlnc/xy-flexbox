@@ -25,7 +25,7 @@ xy-make-container(gutter)
 // Defines of the maximum width for the container
 xy-make-container-width(breakpoint, width)
   @media (min-width: breakpoint)
-    width: width
+    max-width: width
 
 
 //
@@ -50,6 +50,7 @@ xy-make-column(gutter)
   min-height: 1px
   padding-left:  (gutter / 2)
   padding-right: (gutter / 2)
+  flex: 0 0 100%
 
 // Defines of the maximum width for the column
 xy-make-columns-width(alias, count)
