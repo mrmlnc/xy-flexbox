@@ -3,10 +3,13 @@
   "description": "XY is a small and very flexible collection of mixins for building grids based on flexbox",
   "license": "MIT",
   "homepage": "https://github.com/mrmlnc/xy-flexbox",
-  "author": {
-    "name": "Denis Malinochkin",
-    "url": "canonium.com"
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/mrmlnc/xy-flexbox.git"
   },
+  "authors": [
+    "Denis Malinochkin (@mrmlnc)"
+  ],
   "keywords": [
     "grid",
     "mixins",
@@ -16,6 +19,11 @@
     "less",
     "sass",
     "stylus"
+  ],
+  "main": [
+    "xy.less",
+    "xy.scss",
+    "xy.styl"
   ],
   "ignore": [
     "**/.*",
