@@ -51,12 +51,14 @@ xy-make-column(gutter)
   padding-left:  (gutter / 2)
   padding-right: (gutter / 2)
   flex: 0 0 100%
+  max-width: 100%
 
 // Defines of the maximum width for the column
 xy-make-columns-width(alias, count)
   for index in 1..count
     &-{alias}-{index}
-      flex: 0 0 ((index / count) * 100%)
+      flex-basis: ((index / count) * 100%)
+      max-width: ((index / count) * 100%)
 
 // Defines of offset for the column
 xy-make-columns-offset(alias, count)

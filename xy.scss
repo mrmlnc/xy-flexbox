@@ -55,13 +55,15 @@
   padding-left:  ($gutter / 2);
   padding-right: ($gutter / 2);
   flex: 0 0 100%;
+  max-width: 100%;
 }
 
 // Defines of the maximum width for the column
 @mixin xy-make-columns-width($alias, $count) {
   @for $index from 1 through $count {
     &-#{$alias}-#{$index} {
-      flex: 0 0 percentage($index / $count);
+      flex-basis: percentage($index / $count);
+      max-width: percentage($index / $count);
     }
   }
 }
